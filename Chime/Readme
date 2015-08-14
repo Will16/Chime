@@ -1,0 +1,91 @@
+
+TO DO
+===
+
+Right Now
+==
+Timer
+- in DetailVC, in ViewWillDisappear, save the elapsed time to Singleton
+- in viewWillAppear, recall and factor in the saved time
+- Set up NSNotifications for the amount of time b/w the total elapsed time and the deal(s)
+    - when the app is reopened before the notification, remove the notification to avoid duplicates
+    - do we need any actions along with the notification?  "Ignore" / "Claim"?"
+
+General
+==
+- DONE /// Hook up Parse Framework
+- Hook up Facebook API
+- Hook up FourSquare API
+
+LoginVC
+==
+- Currently, 'Log In' and 'Sign Up' btns call the same action. Update this so wrong passwords, misspelled emails, etc. are accounted for.
+- Add Facebook login option / tie existing users to it or create new one
+    - Change Facebook login to work through FB instead of Parse so we can more easily get profile pics, etc. Then just call the Parse methods when FB API runs.
+- Make the "next" key on keyboard shift focus to password field
+- Make "go" gey on keyboard log in / sign up when password field is selected
+
+VenueTVC
+==
+- Everything!
+- Customize Navigation Bar for UI
+- Customize Toolbar for UI
+- Configure cell data source
+- Configure cell UI
+
+DetailTVC
+==
+- Everything!
+- Draw custom button for claiming deals
+- Needs more directions for how to use check ins, etc.
+    - Maybe a modal presentation for first time users?
+- Figure out how to work timer consistently
+- Research iBeacons
+
+Future Features
+==
+
+GENERAL
+- Update the createNewVenue VCs so they collect the address a better way
+- Add Sounds for checking in and notifications and claiming deals.
+
+SETTINGS
+- Add settings page!
+    - Change password, profile picture, hometown, payment info???, etc.
+    - MAYBE allow user to select b/w a couple color themes?
+
+FOURSQUARE
+- Allow owners to select their venue from the FourSquare API
+- Show small image of each venue on cell?  (If available...)
+    - Alternatively, show image in the detailVC 'sky' portion
+
+SOCIAL
+- Invite friends (from Facebook)
+- See how many people are checked in to a venue
+    - See which friends are in which venues
+
+GAMEIFY
+- Create deal reward that == "venue points" (i.e. stay 4 hours and get 1 point at The Ivy.  Collect 5 and get...)
+- Leaderboard showing who spends the most time at each venue (similar to 'Mayor' system)
+
+MAP
+- Add map that shows all the venues with some details in their accessory view.
+
+UI
+- Make buttons and cells have 3 gradient colors
+- Update images in navbar to look better
+    - MAYBE play sound when they're clicked, or add gravity and make them fall away.
+- Add metallic border to the check in button and the clock
+- Make the "sky" in the DetailVC reflect day vs. night
+- Add first-time-user modals throughout
+- Update the "New Venue" VCs so they look better and collect the address in a different way.
+
+MAYBE!
+- Change the "sky" in the DetailVC and VendorDetailVC reflect current weather?
+
+
+
+
+
+
+
