@@ -177,7 +177,7 @@ class VenueRegistrationTVC: UITableViewController {
         // TODO: add hometown / city to user when signing up..  though maybe just have them enter it.  could present alert asking "is Atlanta your hometown?" and then adding it if they click "yes"
         
         user.signUpInBackgroundWithBlock {
-            (succeeded: Bool, error: NSError!) -> Void in
+            (succeeded, error) -> Void in
             if error == nil {
                 // sign up successful
                 print("Parse: Sign up successful. New account created: \(user.username)")
@@ -216,7 +216,7 @@ class VenueRegistrationTVC: UITableViewController {
                 venueInfo["location"] = geoPoint
                 venueInfo["venueOwner"] = PFUser.currentUser().email
                 
-                venueInfo.saveInBackgroundWithBlock({ (succeeded: Bool, error: NSError!) -> Void in
+                venueInfo.saveInBackgroundWithBlock({ (succeeded, error) -> Void in
                     // venue is successfully saved to parse, dismiss vc
                     print("Venue registration succeeded. Venue created: \(self.venueNameField.text)")
                     

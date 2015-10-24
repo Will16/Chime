@@ -77,7 +77,7 @@ class NewVenueVC: UIViewController {
                 
                 // list["location"] = location
                 
-                venueInfo.saveInBackgroundWithBlock({ (succeeded: Bool, error: NSError!) -> Void in
+                venueInfo.saveInBackgroundWithBlock({ (succeeded, error) -> Void in
                     
                     if error == nil {
                         // venue is successfully saved to parse, dismiss vc

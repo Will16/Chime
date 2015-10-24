@@ -216,7 +216,7 @@ class LoginVC: UIViewController, FBLoginViewDelegate, CLLocationManagerDelegate 
     func login() {
         // log in user
         PFUser.logInWithUsernameInBackground(emailField.text, password:passwordField.text) {
-            (user: PFUser!, error: NSError!) -> Void in
+            (user, error) -> Void in
             
             if user != nil {
                 print("Parse: Login successful. Logged in as \(user.username).")
@@ -266,7 +266,7 @@ class LoginVC: UIViewController, FBLoginViewDelegate, CLLocationManagerDelegate 
         // TODO: add hometown / city to user when signing up..  though maybe just have them enter it.  could present alert asking "is Atlanta your hometown?" and then adding it if they click "yes"
         
         user.signUpInBackgroundWithBlock {
-            (succeeded: Bool, error: NSError!) -> Void in
+            (succeeded, error) -> Void in
             if error == nil {
                 // sign up successful, dismiss loginVC
                 print("Parse: Signup successful. New account created: \(user.username)")
@@ -301,7 +301,7 @@ class LoginVC: UIViewController, FBLoginViewDelegate, CLLocationManagerDelegate 
         // log in user with Facebook
         print("User requests to log in with Facebook...")
         PFFacebookUtils.logInWithPermissions(["public_profile","email","user_friends"], block: {
-            (user: PFUser!, error: NSError!) -> Void in
+            (user, error) -> Void in
             if let user = user {
                 if user.isNew {
                     print("User signed up through Facebook successfully. User: \(user)")

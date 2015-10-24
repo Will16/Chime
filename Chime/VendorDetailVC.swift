@@ -225,50 +225,5 @@ class VendorDetailTVC: UITableViewController {
         
     }
     
-    /*
-    // allow owner to delete deals from venue TODO: NOT WORKING
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            
-            println("User requests to delete deal from venue...")
-            
-//            ChimeData.mainData().venues.removeObjectAtIndex(indexPath.row)
-            
-            let query = PFQuery(className: "Venues")
-            
-            query.getObjectInBackgroundWithId(selectedVenue.objectId, block: { (venue, error) -> Void in
-                //        retrieve Parse venue object so we can add the deals to any existing deals
-                if error == nil {
-                    
-                    var currentVenue: PFObject = venue
-                    
-                    if var deals = currentVenue["venueDeals"] as? [[String:AnyObject]] {
-                        
-                    }
-                    
-                    currentVenue.saveInBackgroundWithBlock({ (success, error) -> Void in
-                        
-                        if success {
-
-                        } else {
-                            println("Error deleting deal from Parse: \(error)")
-                        }
-                        
-                    })
-                    
-                    
-                } else {
-                    println("Error loading selected venue from Parse while deleting: \(error)")
-                }
-                
-            })
-            
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }
-    } 
-    */
-    
+        
 }

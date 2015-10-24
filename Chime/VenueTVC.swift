@@ -207,7 +207,7 @@ class VenueTVC: UITableViewController, userLocationProtocol, CLLocationManagerDe
         }
         
         query.findObjectsInBackgroundWithBlock() {
-            (objects:[AnyObject]!, error:NSError!)->Void in
+            (objects, error)->Void in
             if ((error) == nil) {
                 
                 print(objects)

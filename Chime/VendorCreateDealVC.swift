@@ -72,8 +72,7 @@ class VendorCreateDealVC: UIViewController, CustomSliderDelegate {
         
         if sliderType == "time" {
             // slider value changing for time label
-        
-//            var timeRequired = Int(floor(value * 10)) // use this one for 1-10 incremented by 1
+
             timeRequired = Double(round((value * 9) * 2)) / 2  // use this one for 1-10 incremented by .5
             if timeRequired >= 1 {
                 timeRequiredLabel.text = "Time Required: \(timeRequired) hrs"
@@ -110,26 +109,28 @@ class VendorCreateDealVC: UIViewController, CustomSliderDelegate {
         // check for reward description and time required
         if describeRewardField.text == "" || timeRequired == 0 {
             // all fields are not filled in, present alert
-            var alertViewController = UIAlertController(title: "Submission Error", message: "Reward description and time required must be set to create a new deal!", preferredStyle: UIAlertControllerStyle.Alert)
-            var defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertViewController = UIAlertController(title: "Submission Error", message: "Reward description and time required must be set to create a new deal!", preferredStyle: UIAlertControllerStyle.Alert)
+            let defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
             alertViewController.addAction(defaultAction)
             presentViewController(alertViewController, animated: true, completion: nil)
         } else {
             // all validations are good, proceed to save deal
-            
-            let newDeal = [
-                    
-                    "timeThreshold":(timeRequired as NSNumber).stringValue,
-                    "rewardDescription":describeRewardField.text,
-                    "additionalDetails":additionalDetailsField.text,
-                    "estimatedValue":estimatedValue,
-                    "active":true,
-                    "timeCreated":NSDate
-                
-                
-                
-                    
-                ]
+            let newDeal: [String:AnyObject] = [
+                "timeThreshold":(timeRequired as NSNumber).stringValue,
+                "rewardDescription":describeRewardField.text!,
+                "additionalDetails":additionalDetailsField.text!,
+                "estimatedValue":estimatedValue,
+                "active":true,
+                "timeCreated":NSDate()
+            ]
+
+//    var newDeal = ["timeThreshold":(timeRequired as NSNumber).stringValue,
+//                "rewardDescription":describeRewardField.text,
+//                "additionalDetails":additionalDetailsField.text,
+//                "estimatedValue":estimatedValue,
+//                "active":true,
+//                "timeCreated":NSDate(timeIntervalSinceNow: 0.0)
+//                ]
             
             let query = PFQuery(className: "Venues")
             
@@ -138,7 +139,7 @@ class VendorCreateDealVC: UIViewController, CustomSliderDelegate {
                 if error == nil {
                     print(venue)
                     
-                    var currentVenue: PFObject = venue
+                    let currentVenue: PFObject = venue
 
                     if var deals = currentVenue["venueDeals"] as? [[String:AnyObject]] {
                         // runs if at least one deal already exists
@@ -195,7 +196,7 @@ class VendorCreateDealVC: UIViewController, CustomSliderDelegate {
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        var fieldValues: [String] = [describeRewardField.text,additionalDetailsField.text]
+        let fieldValues: [String] = [describeRewardField.text!,additionalDetailsField.text!]
         
         // set preview cell to whatever is in the textfield, if anything
         if describeRewardField.text != "" && !cellTouched {
