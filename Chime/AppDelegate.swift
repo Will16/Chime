@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         /////////
         
         // actions
-        var firstAction = UIMutableUserNotificationAction()
+        let firstAction = UIMutableUserNotificationAction()
         firstAction.identifier = "CLAIM_DEAL"
         firstAction.title = "🍻 CLAIM"
         
@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         firstAction.destructive = false
         firstAction.authenticationRequired = false
 
-        var secondAction = UIMutableUserNotificationAction()
+        let secondAction = UIMutableUserNotificationAction()
         secondAction.identifier = "IGNORE_DEAL"
         secondAction.title = "😢 IGNORE"
         
@@ -52,14 +52,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaultActions: NSArray = [firstAction, secondAction]
         let minimalActions: NSArray = [firstAction, secondAction]
         
-        firstCategory.setActions(defaultActions as [AnyObject], forContext: UIUserNotificationActionContext.Default)
-        firstCategory.setActions(minimalActions as [AnyObject], forContext: UIUserNotificationActionContext.Minimal)
+        firstCategory.setActions(defaultActions as? [UIUserNotificationAction], forContext: UIUserNotificationActionContext.Default)
+        firstCategory.setActions(minimalActions as? [UIUserNotificationAction], forContext: UIUserNotificationActionContext.Minimal)
         
         let categories = NSSet(object: firstCategory)
         
         // should I add .Sound to notification type?
-        let types: UIUserNotificationType = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound
-        let mySettings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: types, categories: categories as Set<NSObject>)
+        let types: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]
+        let mySettings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: types, categories: categories as? Set<UIUserNotificationCategory>)
         UIApplication.sharedApplication().registerUserNotificationSettings(mySettings)
         
         
@@ -83,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         completionHandler: (() -> Void)) {
             
             if identifier == "CLAIM_DEAL" {
-                println("User selected 'Claim Deal' from local notification.")
+                print("User selected 'Claim Deal' from local notification.")
                 // take user to active venue detailVC (use notification center)
             }
             
@@ -93,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication,
         openURL url: NSURL,
         sourceApplication: String?,
-        annotation: AnyObject?) -> Bool {
+        annotation: AnyObject) -> Bool {
             return FBAppCall.handleOpenURL(url, sourceApplication:sourceApplication,
                 withSession:PFFacebookUtils.session())
     }

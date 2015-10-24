@@ -42,12 +42,12 @@ class NewVenueVC: UIViewController {
     /////////
     
     @IBAction func checkFields(sender: AnyObject) {
-        // email / pw field validation
-        var fieldValues: [String] = [venueNameField.text,venueAddressField.text,venuePhoneField.text,venueNeighborhoodField.text]
-        if find(fieldValues, "") != nil {
+        // email / pw field validation!
+        let fieldValues: [String] = [venueNameField.text!,venueAddressField.text!,venuePhoneField.text!,venueNeighborhoodField.text!]
+        if (fieldValues as [String]).indexOf("") != nil {
             // all fields are not filled in, present alert
-            var alertViewController = UIAlertController(title: "Submission Error", message: "Please fill in all fields.", preferredStyle: UIAlertControllerStyle.Alert)
-            var defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertViewController = UIAlertController(title: "Submission Error", message: "Please fill in all fields.", preferredStyle: UIAlertControllerStyle.Alert)
+            let defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
             alertViewController.addAction(defaultAction)
             presentViewController(alertViewController, animated: true, completion: nil)
         } else {
@@ -59,15 +59,15 @@ class NewVenueVC: UIViewController {
     
     func saveVenue() {
         
-        var address = self.venueAddressField.text
+        let address = self.venueAddressField.text
         
         //        GlobalVariableSharedInstance.delegate = self
         
-        GlobalVariableSharedInstance.addressToLocation(address, completion: { (geoPoint) -> Void in
+        GlobalVariableSharedInstance.addressToLocation(address!, completion: { (geoPoint) -> Void in
             
             if let geoPoint = geoPoint {
                 
-                var venueInfo:PFObject = PFObject(className: "Venues")
+                let venueInfo:PFObject = PFObject(className: "Venues")
                 venueInfo["venueName"] = self.venueNameField.text
                 venueInfo["venueAddress"] = self.venueAddressField.text
                 venueInfo["venueNeighborhood"] = self.venueNeighborhoodField.text
@@ -81,7 +81,7 @@ class NewVenueVC: UIViewController {
                     
                     if error == nil {
                         // venue is successfully saved to parse, dismiss vc
-                        println("Venue registration succeeded. Venue created: \(self.venueNameField.text)")
+                        print("Venue registration succeeded. Venue created: \(self.venueNameField.text)")
                         
                         makeVibrate()
                         
@@ -91,7 +91,7 @@ class NewVenueVC: UIViewController {
                             self.presentViewController(nc, animated: true, completion: nil)
                         }
                     } else {
-                        println(error)
+                        print(error)
                     }
 
                 })
@@ -103,7 +103,7 @@ class NewVenueVC: UIViewController {
     
     // not sure what this does but it conforms us to the protocol..
     func didReceiveGeoPoint(location: PFGeoPoint) {
-        println("didReceiveGeoPoint function ran...")
+        print("didReceiveGeoPoint function ran...")
         
     }
     
@@ -112,7 +112,7 @@ class NewVenueVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         // dismiss keyboard when user touches outside textfields
         view.endEditing(true)
         //        tableView.endEditing(true)

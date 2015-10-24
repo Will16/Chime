@@ -56,27 +56,27 @@ class LocationManager: NSObject,  CLLocationManagerDelegate
         }
         else
         {
-            var alert:UIAlertView = UIAlertView(title: "Error", message: "Location Services not Enabled. Please enable Location Services in your phone settings.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert:UIAlertView = UIAlertView(title: "Error", message: "Location Services not Enabled. Please enable Location Services in your phone settings.", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
     
     
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!)
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
-        println("Location updated...")
+        print("Location updated...")
         
         if (locations.count > 0)
         {
             // the last location is the good one?
-            var newLocation:CLLocation = locations[0] as! CLLocation
+            let newLocation:CLLocation = locations[0] 
             coreLocationManager.stopUpdatingLocation()
             delegate?.didReceiveUserLocation(newLocation)
             
         } else {
          
-            var newLocation = CLLocation(latitude: 51.368123, longitude: -0.021973)
+            let newLocation = CLLocation(latitude: 51.368123, longitude: -0.021973)
 
             delegate?.didReceiveUserLocation(newLocation)
             
@@ -86,11 +86,11 @@ class LocationManager: NSObject,  CLLocationManagerDelegate
     
     
     
-    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus)
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus)
     {
         if (status == CLAuthorizationStatus.AuthorizedAlways)
         {
-            println("Location manager is authorized...")
+            print("Location manager is authorized...")
         }
         else if(status == CLAuthorizationStatus.Denied)
         {
@@ -106,7 +106,7 @@ class LocationManager: NSObject,  CLLocationManagerDelegate
         
         
         if (location==nil) {
-            println("Location is nil!")
+            print("Location is nil!")
             location = CLLocation(latitude: 51.368123, longitude: -0.021973)
         }
         /*        if (("iPhone Simulator" == UIDevice.currentDevice().model) || ("iPad Simulator" == UIDevice.currentDevice().model))
@@ -136,9 +136,9 @@ class LocationManager: NSObject,  CLLocationManagerDelegate
         {
             
             // the location we want to go to
-            var locationFromGeoPoint:CLLocation = CLLocation(latitude: location.latitude, longitude: location.longitude)
+            let locationFromGeoPoint:CLLocation = CLLocation(latitude: location.latitude, longitude: location.longitude)
             let current_location:CLLocation? = GlobalVariableSharedInstance.currentLocation()
-            distance = abs(locationFromGeoPoint.distanceFromLocation(current_location))
+            distance = abs(locationFromGeoPoint.distanceFromLocation(current_location!))
 //            println("DISTANCE \(distance)")
         }
         
@@ -147,32 +147,30 @@ class LocationManager: NSObject,  CLLocationManagerDelegate
     }
     
     func addressToLocationProtocol(addressString: String) {
-        var geocoder = CLGeocoder()
+        let geocoder = CLGeocoder()
         
-        
-
-        
-        geocoder.geocodeAddressString(addressString, completionHandler: {(placemarks: [AnyObject]!, error: NSError!) -> Void in
+       
+     
+        geocoder.geocodeAddressString(addressString, completionHandler: {(placemarks, error) -> Void in
             
             if (error == nil) {
                 
-            
+        
                 
-                var placemark: CLPlacemark = placemarks.last as! CLPlacemark
-                var location = placemark.location as CLLocation
-                var locationLat = placemark.location.coordinate.latitude
-                var locationLon = placemark.location.coordinate.longitude
+                let placemark: CLPlacemark = placemarks!.last!
+               
+                let locationLat = placemark.location!.coordinate.latitude
+                let locationLon = placemark.location!.coordinate.longitude
                 
-                println("Location Found! lat: \(locationLat) long: \(locationLon)")
-                var geoPoint = PFGeoPoint(latitude: locationLat, longitude: locationLon) as PFGeoPoint
-
+                print("Location Found! lat: \(locationLat) long: \(locationLon)")
+      
             
             
                 
                 
             } else {
                 
-                println("Error while trying to find latitude and longtitude of address search")
+                print("Error while trying to find latitude and longtitude of address search")
                 
                 
             }
@@ -185,23 +183,23 @@ class LocationManager: NSObject,  CLLocationManagerDelegate
     
     
     func addressToLocation (addressString: String, completion: (geoPoint: PFGeoPoint?) -> Void) {
-        var geocoder = CLGeocoder()
+        let geocoder = CLGeocoder()
         
         var geoPoint: PFGeoPoint?
         
         // this is not in the main thread, so if return value for geopoint, geopoint will be nil bfefore it gets set in that method (this is why we should use completion block)
-        geocoder.geocodeAddressString(addressString,  completionHandler: {(placemarks: [AnyObject]!, error: NSError!) -> Void in
+        geocoder.geocodeAddressString(addressString,  completionHandler: {(placemarks, error) -> Void in
             
             if (error == nil) {
                 
                 
                 
-                var placemark: CLPlacemark = placemarks.last as! CLPlacemark
-                var location = placemark.location as CLLocation
-                var locationLat = placemark.location.coordinate.latitude
-                var locationLon = placemark.location.coordinate.longitude
+                let placemark: CLPlacemark = placemarks!.last!
+
+                let locationLat = placemark.location!.coordinate.latitude
+                let locationLon = placemark.location!.coordinate.longitude
                 
-                println("Location Found! lat: \(locationLat) long: \(locationLon)")
+                print("Location Found! lat: \(locationLat) long: \(locationLon)")
                 geoPoint = PFGeoPoint(latitude: locationLat, longitude: locationLon) as PFGeoPoint
 
                 completion(geoPoint: geoPoint)
@@ -209,7 +207,7 @@ class LocationManager: NSObject,  CLLocationManagerDelegate
                 
             } else {
                 
-                println("Error while trying to find latitude and longtitude of address search...")
+                print("Error while trying to find latitude and longtitude of address search...")
                 
                 
             }

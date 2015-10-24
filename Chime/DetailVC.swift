@@ -130,28 +130,28 @@ class DetailVC: UIViewController {
         // ANIMATIONS
         
         // animate the name from the top
-        var scale1 = CGAffineTransformMakeScale(0.5, 0.5)
-        var translate1 = CGAffineTransformMakeTranslation(0, -150)
+        let scale1 = CGAffineTransformMakeScale(0.5, 0.5)
+        let translate1 = CGAffineTransformMakeTranslation(0, -150)
         self.venueNameLabel.transform = CGAffineTransformConcat(scale1, translate1)
         
         animationWithDuration(1.5) {
             self.venueNameLabel.hidden = false
-            var scale = CGAffineTransformMakeScale(1, 1)
-            var translate = CGAffineTransformMakeTranslation(0, 0)
+            let scale = CGAffineTransformMakeScale(1, 1)
+            let translate = CGAffineTransformMakeTranslation(0, 0)
             self.venueNameLabel.transform = CGAffineTransformConcat(scale, translate)
         }
         
         // animate the neighborhood and phone labels from the
-        var scale2 = CGAffineTransformMakeScale(0.5, 0.5)
-        var translate2 = CGAffineTransformMakeTranslation(0, 150)
+        let scale2 = CGAffineTransformMakeScale(0.5, 0.5)
+        let translate2 = CGAffineTransformMakeTranslation(0, 150)
         self.venueNeighborhoodLabel.transform = CGAffineTransformConcat(scale2, translate2)
         self.venuePhoneLabel.transform = CGAffineTransformConcat(scale2, translate2)
         
         animationWithDuration(1.25) {
             self.venueNeighborhoodLabel.hidden = false
             self.venuePhoneLabel.hidden = false
-            var scale = CGAffineTransformMakeScale(1, 1)
-            var translate = CGAffineTransformMakeTranslation(0, 0)
+            let scale = CGAffineTransformMakeScale(1, 1)
+            let translate = CGAffineTransformMakeTranslation(0, 0)
             self.venueNeighborhoodLabel.transform = CGAffineTransformConcat(scale, translate)
             self.venuePhoneLabel.transform = CGAffineTransformConcat(scale, translate)
         }
@@ -245,13 +245,13 @@ class DetailVC: UIViewController {
             // change appearance of checkIn button to disabled with animation
             
             // animate the logo from the bottom
-            var scale1 = CGAffineTransformMakeScale(1.5, 1.5)
-            var translate1 = CGAffineTransformMakeTranslation(0, 0)
+            let scale1 = CGAffineTransformMakeScale(1.5, 1.5)
+            let translate1 = CGAffineTransformMakeTranslation(0, 0)
             checkInButton.titleLabel?.transform = CGAffineTransformConcat(scale1, translate1)
             
             animationWithDuration(2) {
-                var scale = CGAffineTransformMakeScale(1, 1)
-                var translate = CGAffineTransformMakeTranslation(0, 0)
+                let scale = CGAffineTransformMakeScale(1, 1)
+                let translate = CGAffineTransformMakeTranslation(0, 0)
                 self.checkInButton.titleLabel?.transform = CGAffineTransformConcat(scale, translate)
             }
             
@@ -308,8 +308,8 @@ class DetailVC: UIViewController {
         if venueDeals.count == 0 {
             
             // venue doesn't have any deals set up, present alert to user
-            var alertViewController = UIAlertController(title: "We're sorry!", message: "This venue doesn't have any active deals right now, please check back soon!", preferredStyle: UIAlertControllerStyle.Alert)
-            var defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertViewController = UIAlertController(title: "We're sorry!", message: "This venue doesn't have any active deals right now, please check back soon!", preferredStyle: UIAlertControllerStyle.Alert)
+            let defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
             alertViewController.addAction(defaultAction)
             presentViewController(alertViewController, animated: true, completion: nil)
             
@@ -349,7 +349,7 @@ class DetailVC: UIViewController {
                     let dealThreshold: NSTimeInterval = time.doubleValue * 10 // change this to * 60 * 60 for production
                     
                     let fireDate = NSDate(timeInterval: dealThreshold, sinceDate: NSDate())
-                    println("Setting local notification for deal \(deal), at time threshold \(time).")
+                    print("Setting local notification for deal \(deal), at time threshold \(time).")
 //                    setLocalNotification(fireDate, andAlert: rewardDescription)
                     setLocalNotification(fireDate, andAlert: rewardDescription, andDeal: deal)
                     
@@ -362,8 +362,8 @@ class DetailVC: UIViewController {
         } else {
             
             // user isn't close enough to venue, present alert
-            var alertViewController = UIAlertController(title: "You In The Right Spot?", message: "Looks like you're not close enough to the venue to check in...make sure you're in the right location and try again!", preferredStyle: UIAlertControllerStyle.Alert)
-            var defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertViewController = UIAlertController(title: "You In The Right Spot?", message: "Looks like you're not close enough to the venue to check in...make sure you're in the right location and try again!", preferredStyle: UIAlertControllerStyle.Alert)
+            let defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
             alertViewController.addAction(defaultAction)
             presentViewController(alertViewController, animated: true, completion: nil)
 
@@ -375,7 +375,7 @@ class DetailVC: UIViewController {
     func checkUserDistanceFromVenue() -> Bool {
         
         // CHECK TO SEE IF USER IS WITHIN SOME DISTANCE OF THE VENUE
-        var userLocation = GlobalVariableSharedInstance.currentLocation() as CLLocation
+        let userLocation = GlobalVariableSharedInstance.currentLocation() as CLLocation
         
         if let venueLocation = self.location as CLLocation? {
             
@@ -385,17 +385,17 @@ class DetailVC: UIViewController {
             
             if userDistanceFromVenue <= venueRadius {
                 
-                println("User is within Venue Radius, running the timer...")
+                print("User is within Venue Radius, running the timer...")
                 return true
                 
             } else {
                 
-                println("User is not within Venue Radius...")
+                print("User is not within Venue Radius...")
                 return false
             }
         
         } else {
-            println("Error retrieving venue location...")
+            print("Error retrieving venue location...")
             return false
         }
     }
@@ -407,8 +407,8 @@ class DetailVC: UIViewController {
         
         if !userInsideVenueRadius {
             // user isn't close enough to venue, present alert
-            var alertViewController = UIAlertController(title: "Uh Oh!", message: "Looks like you've wandered too far from the venue... You have to stay put to run the clock!", preferredStyle: UIAlertControllerStyle.Alert)
-            var defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertViewController = UIAlertController(title: "Uh Oh!", message: "Looks like you've wandered too far from the venue... You have to stay put to run the clock!", preferredStyle: UIAlertControllerStyle.Alert)
+            let defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
             alertViewController.addAction(defaultAction)
             presentViewController(alertViewController, animated: true, completion: nil)
             
@@ -417,7 +417,7 @@ class DetailVC: UIViewController {
             return
         }
         
-        var currentTime = NSDate.timeIntervalSinceReferenceDate()
+        let currentTime = NSDate.timeIntervalSinceReferenceDate()
         
         // find the difference between current time and start time.
         var elapsedTime: NSTimeInterval = currentTime - startTime
@@ -460,12 +460,12 @@ class DetailVC: UIViewController {
                 // convert time from hours (string) to seconds (double) and set notifications
                 let dealThreshold: NSTimeInterval = time.doubleValue * 10 // change this to * 60 * 60 for production
                 
-                var currentTime = NSDate.timeIntervalSinceReferenceDate()
+                let currentTime = NSDate.timeIntervalSinceReferenceDate()
                 
                 // find the difference between current time and start time.
-                var elapsedTime: NSTimeInterval = currentTime - startTime
+                let elapsedTime: NSTimeInterval = currentTime - startTime
                 
-                println("dealthreshold: \(dealThreshold), elapsed time: \(elapsedTime)")
+                print("dealthreshold: \(dealThreshold), elapsed time: \(elapsedTime)")
 
                 if elapsedTime > dealThreshold {
                     
@@ -487,7 +487,7 @@ class DetailVC: UIViewController {
         
         badgeNumber++
         
-        var notification = UILocalNotification()
+        let notification = UILocalNotification()
         notification.category = "FIRST_CATEGORY"
         notification.alertBody = "You did it! Claim your prize: \(alert)"
         notification.fireDate = fireDate
@@ -586,16 +586,16 @@ class DetailTVC: UITableViewController {
                     cell.dealLabel.text = "CLAIM: \(dealName)"
                     
                     // animate the scale of the deal label
-                    var scale1 = CGAffineTransformMakeScale(2, 2)
-                    var translate1 = CGAffineTransformMakeTranslation(0, 0)
+                    let scale1 = CGAffineTransformMakeScale(2, 2)
+                    let translate1 = CGAffineTransformMakeTranslation(0, 0)
                     cell.dealLabel.transform = CGAffineTransformConcat(scale1, translate1)
                     cell.indicatorArrow.transform = CGAffineTransformConcat(scale1, translate1)
                     cell.claimInstructionsLabel.transform = CGAffineTransformConcat(scale1, translate1)
                     
                     spring(2) {
                         
-                        var scale = CGAffineTransformMakeScale(1, 1)
-                        var translate = CGAffineTransformMakeTranslation(0, 0)
+                        let scale = CGAffineTransformMakeScale(1, 1)
+                        let translate = CGAffineTransformMakeTranslation(0, 0)
                         cell.dealLabel.transform = CGAffineTransformConcat(scale, translate)
                         cell.indicatorArrow.transform = CGAffineTransformConcat(scale, translate)
                         cell.claimInstructionsLabel.transform = CGAffineTransformConcat(scale, translate)
@@ -622,8 +622,8 @@ class DetailTVC: UITableViewController {
                 
                 if status {
                     
-                    var alertViewController = UIAlertController(title: "Claim Deal", message: "Show this to your server to redeem your reward!", preferredStyle: UIAlertControllerStyle.Alert)
-                    var defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+                    let alertViewController = UIAlertController(title: "Claim Deal", message: "Show this to your server to redeem your reward!", preferredStyle: UIAlertControllerStyle.Alert)
+                    let defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
                     alertViewController.addAction(defaultAction)
                     vc.presentViewController(alertViewController, animated: true, completion: nil)
                     

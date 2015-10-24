@@ -55,8 +55,8 @@ class LoginVC: UIViewController, FBLoginViewDelegate, CLLocationManagerDelegate 
         /////////   SHIFT UI WITH KEYBOARD PRESENT
         /////////
         var keyboardHeight: CGFloat = 0
-        NSNotificationCenter.defaultCenter().addObserverForName(UIKeyboardWillShowNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
-            if let kbSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size {
+        NSNotificationCenter.defaultCenter().addObserverForName(UIKeyboardWillShowNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification) -> Void in
+            if let kbSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size {
                 // move constraint
                 keyboardHeight = kbSize.height
                 self.loginBottomConstraint.constant += keyboardHeight
@@ -88,8 +88,8 @@ class LoginVC: UIViewController, FBLoginViewDelegate, CLLocationManagerDelegate 
         // animations
         
         // animate the text fields from the right
-        var scale1 = CGAffineTransformMakeScale(0.5, 0.5)
-        var translate1 = CGAffineTransformMakeTranslation(200, 0)
+        let scale1 = CGAffineTransformMakeScale(0.5, 0.5)
+        let translate1 = CGAffineTransformMakeTranslation(200, 0)
         self.emailField.transform = CGAffineTransformConcat(scale1, translate1)
         self.passwordField.transform = CGAffineTransformConcat(scale1, translate1)
         self.businessOwnerButton.transform = CGAffineTransformConcat(scale1, translate1)
@@ -99,16 +99,16 @@ class LoginVC: UIViewController, FBLoginViewDelegate, CLLocationManagerDelegate 
             self.emailField.hidden = false
             self.passwordField.hidden = false
             self.businessOwnerButton.hidden = false
-            var scale = CGAffineTransformMakeScale(1, 1)
-            var translate = CGAffineTransformMakeTranslation(0, 0)
+            let scale = CGAffineTransformMakeScale(1, 1)
+            let translate = CGAffineTransformMakeTranslation(0, 0)
             self.emailField.transform = CGAffineTransformConcat(scale, translate)
             self.passwordField.transform = CGAffineTransformConcat(scale, translate)
             self.businessOwnerButton.transform = CGAffineTransformConcat(scale, translate)
         }
         
         // animate the facebook button and text field lines from the left
-        var scale3 = CGAffineTransformMakeScale(0.5, 0.5)
-        var translate3 = CGAffineTransformMakeTranslation(-200, 0)
+        let scale3 = CGAffineTransformMakeScale(0.5, 0.5)
+        let translate3 = CGAffineTransformMakeTranslation(-200, 0)
         self.fbIcon.transform = CGAffineTransformConcat(scale3, translate3)
         self.fbLetter.transform = CGAffineTransformConcat(scale3, translate3)
         self.fbButton.transform = CGAffineTransformConcat(scale3, translate3)
@@ -123,8 +123,8 @@ class LoginVC: UIViewController, FBLoginViewDelegate, CLLocationManagerDelegate 
             self.emailLineView.hidden = false
             self.passwordLineView.hidden = false
             self.orLabel.hidden = false
-            var scale = CGAffineTransformMakeScale(1, 1)
-            var translate = CGAffineTransformMakeTranslation(0, 0)
+            let scale = CGAffineTransformMakeScale(1, 1)
+            let translate = CGAffineTransformMakeTranslation(0, 0)
             self.fbIcon.transform = CGAffineTransformConcat(scale, translate)
             self.fbLetter.transform = CGAffineTransformConcat(scale, translate)
             self.fbButton.transform = CGAffineTransformConcat(scale, translate)
@@ -134,28 +134,28 @@ class LoginVC: UIViewController, FBLoginViewDelegate, CLLocationManagerDelegate 
         }
         
         // animate the logo from the bottom
-        var scale2 = CGAffineTransformMakeScale(0.5, 0.5)
-        var translate2 = CGAffineTransformMakeTranslation(0, 400)
+        let scale2 = CGAffineTransformMakeScale(0.5, 0.5)
+        let translate2 = CGAffineTransformMakeTranslation(0, 400)
         self.logoContainerView.transform = CGAffineTransformConcat(scale2, translate2)
         
         animationWithDuration(2) {
             self.logoContainerView.hidden = false
-            var scale = CGAffineTransformMakeScale(1, 1)
-            var translate = CGAffineTransformMakeTranslation(0, 0)
+            let scale = CGAffineTransformMakeScale(1, 1)
+            let translate = CGAffineTransformMakeTranslation(0, 0)
             self.logoContainerView.transform = CGAffineTransformConcat(scale, translate)
         }
         
         // animate the buttons from the bottom
-        var scale4 = CGAffineTransformMakeScale(0.5, 0.5)
-        var translate4 = CGAffineTransformMakeTranslation(0, 50)
+        let scale4 = CGAffineTransformMakeScale(0.5, 0.5)
+        let translate4 = CGAffineTransformMakeTranslation(0, 50)
         self.signUpButton.transform = CGAffineTransformConcat(scale4, translate4)
         self.loginButton.transform = CGAffineTransformConcat(scale4, translate4)
         
         animationWithDuration(1) {
             self.signUpButton.hidden = false
             self.loginButton.hidden = false
-            var scale = CGAffineTransformMakeScale(1, 1)
-            var translate = CGAffineTransformMakeTranslation(0, 0)
+            let scale = CGAffineTransformMakeScale(1, 1)
+            let translate = CGAffineTransformMakeTranslation(0, 0)
             self.signUpButton.transform = CGAffineTransformConcat(scale, translate)
             self.loginButton.transform = CGAffineTransformConcat(scale, translate)
         }
@@ -186,26 +186,26 @@ class LoginVC: UIViewController, FBLoginViewDelegate, CLLocationManagerDelegate 
     /////////
     @IBAction func loginSignUp(sender: AnyObject) {
         // email / pw field validation
-        var fieldValues: [String] = [emailField.text,passwordField.text]
-        if find(fieldValues, "") != nil {
+        let fieldValues: [String] = [emailField.text!,passwordField.text!]
+        if fieldValues.indexOf("") != nil {
             // all fields are not filled in, present alert
-            var alertViewController = UIAlertController(title: "Submission Error", message: "Please fill in all fields.", preferredStyle: UIAlertControllerStyle.Alert)
-            var defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertViewController = UIAlertController(title: "Submission Error", message: "Please fill in all fields.", preferredStyle: UIAlertControllerStyle.Alert)
+            let defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
             alertViewController.addAction(defaultAction)
             presentViewController(alertViewController, animated: true, completion: nil)
         } else {
             // all fields are filled in, check if user exists
-            var userQuery = PFUser.query()
+            let userQuery = PFUser.query()
             userQuery.whereKey("email", equalTo: emailField.text)
             
             userQuery.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
                 if objects.count > 0 {
                     // user exists, log in user
-                    println("Log In fields good...")
+                    print("Log In fields good...")
                     self.login()
                 } else {
                     // user not found, sign up user
-                    println("Sign Up fields good...")
+                    print("Sign Up fields good...")
                     self.signUp()
                 }
                 makeVibrate()
@@ -219,7 +219,7 @@ class LoginVC: UIViewController, FBLoginViewDelegate, CLLocationManagerDelegate 
             (user: PFUser!, error: NSError!) -> Void in
             
             if user != nil {
-                println("Parse: Login successful. Logged in as \(user.username).")
+                print("Parse: Login successful. Logged in as \(user.username).")
                 // login successful, dismiss loginVC
               //  self.dismissViewControllerAnimated(true, completion: nil)
                 
@@ -233,10 +233,10 @@ class LoginVC: UIViewController, FBLoginViewDelegate, CLLocationManagerDelegate 
 
             } else {
                 // login failed
-                println("Parse: Login failed. Error message: \(error)")
+                print("Parse: Login failed. Error message: \(error)")
                 // present alert to user
-                var alertViewController = UIAlertController(title: "Log In Error", message: "Our apologies! Please try again.", preferredStyle: UIAlertControllerStyle.Alert)
-                var defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+                let alertViewController = UIAlertController(title: "Log In Error", message: "Our apologies! Please try again.", preferredStyle: UIAlertControllerStyle.Alert)
+                let defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
                 alertViewController.addAction(defaultAction)
                 self.presentViewController(alertViewController, animated: true, completion: nil)
             }
@@ -245,7 +245,7 @@ class LoginVC: UIViewController, FBLoginViewDelegate, CLLocationManagerDelegate 
     
     func signUp() {
         // sign up user
-        var user = PFUser()
+        let user = PFUser()
         user.username = emailField.text
         user.password = passwordField.text
         user.email = emailField.text    // ?? not really using this yet
@@ -269,7 +269,7 @@ class LoginVC: UIViewController, FBLoginViewDelegate, CLLocationManagerDelegate 
             (succeeded: Bool, error: NSError!) -> Void in
             if error == nil {
                 // sign up successful, dismiss loginVC
-                println("Parse: Signup successful. New account created: \(user.username)")
+                print("Parse: Signup successful. New account created: \(user.username)")
                 self.dismissViewControllerAnimated(true, completion: nil)
                 
                 if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("navigationC") as? RootNavigationController {
@@ -280,11 +280,11 @@ class LoginVC: UIViewController, FBLoginViewDelegate, CLLocationManagerDelegate 
 
             } else {
                 // sign up failed
-                let errorString = error.userInfo?["error"] as! NSString
-                println("Signup failed. Error message: \(errorString)")
+                let errorString = error.userInfo["error"] as! NSString
+                print("Signup failed. Error message: \(errorString)")
                 // present alert to user
-                var alertViewController = UIAlertController(title: "Sign Up Error", message: "Our apologies! Please try again.", preferredStyle: UIAlertControllerStyle.Alert)
-                var defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+                let alertViewController = UIAlertController(title: "Sign Up Error", message: "Our apologies! Please try again.", preferredStyle: UIAlertControllerStyle.Alert)
+                let defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
                 alertViewController.addAction(defaultAction)
                 self.presentViewController(alertViewController, animated: true, completion: nil)
                 
@@ -299,12 +299,12 @@ class LoginVC: UIViewController, FBLoginViewDelegate, CLLocationManagerDelegate 
     
     @IBAction func loginWithFacebook(sender: AnyObject) {
         // log in user with Facebook
-        println("User requests to log in with Facebook...")
+        print("User requests to log in with Facebook...")
         PFFacebookUtils.logInWithPermissions(["public_profile","email","user_friends"], block: {
             (user: PFUser!, error: NSError!) -> Void in
             if let user = user {
                 if user.isNew {
-                    println("User signed up through Facebook successfully. User: \(user)")
+                    print("User signed up through Facebook successfully. User: \(user)")
                     
                     // if logged in, try and link to existing Parse User
                     // ?? is this in the right place?
@@ -312,18 +312,18 @@ class LoginVC: UIViewController, FBLoginViewDelegate, CLLocationManagerDelegate 
                         PFFacebookUtils.linkUser(user, permissions:nil, block:  {
                             (succeeded: Bool, error: NSError!) -> Void in
                             if (succeeded) {
-                                println("Woohoo, user logged in with Facebook!")
+                                print("Woohoo, user logged in with Facebook!")
                             }
                         })
                     }
                     
                 } else {
-                    println("User logged in through Facebook successfully. User: \(user)")
+                    print("User logged in through Facebook successfully. User: \(user)")
                 }
                 self.dismissViewControllerAnimated(true, completion: nil)
             } else {
-                println("The user cancelled the Facebook login...")
-                println("Facebook error: \(error)")
+                print("The user cancelled the Facebook login...")
+                print("Facebook error: \(error)")
             }
         })
         
@@ -331,7 +331,7 @@ class LoginVC: UIViewController, FBLoginViewDelegate, CLLocationManagerDelegate 
     
     
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         // dismiss keyboard when user touches outside textfields
         view.endEditing(true)
         super.touchesBegan(touches, withEvent: event)   // ?? is this necessary

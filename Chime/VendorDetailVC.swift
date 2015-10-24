@@ -107,7 +107,7 @@ class VendorDetailVC: UIViewController {
     func pushCreateDealVC() {
         
         // plus button pressed, present createDealVC to user
-        println("Vendor request to create new deal. Pushing to vendorCreateDealVC...")
+        print("Vendor request to create new deal. Pushing to vendorCreateDealVC...")
         let vC = storyboard?.instantiateViewControllerWithIdentifier("vendorCreateDealVC") as! VendorCreateDealVC
         self.navigationController?.pushViewController(vC, animated: true)
         
@@ -199,13 +199,13 @@ class VendorDetailTVC: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         // toggle the deals availability when a cell is touched
-        println("Owner has selected a deal cell...")
+        print("Owner has selected a deal cell...")
         
         if let deals: NSMutableArray = selectedVenue["venueDeals"] as? NSMutableArray {
             
             var deal = deals[indexPath.row] as! [String:AnyObject]
             
-            var status: Bool = deal["active"] as! Bool
+            let status: Bool = deal["active"] as! Bool
             
             if status {
                 // deal is active, switch to inactive

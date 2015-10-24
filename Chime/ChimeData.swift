@@ -44,7 +44,7 @@ class ChimeData: NSObject {
                 self.selectedVenue = venue
                 
             } else {
-                println("Error refreshing selectedVenue from Parse. Error: \(error)")
+                print("Error refreshing selectedVenue from Parse. Error: \(error)")
             }
             
             completion()
@@ -64,7 +64,7 @@ class ChimeData: NSObject {
             return
         }
         
-        var query = PFQuery(className:"Venues")
+        let query = PFQuery(className:"Venues")
         
         if sortByDateCreated == true {
             query.orderByAscending("createdAt")
@@ -79,7 +79,7 @@ class ChimeData: NSObject {
             
             if isVenueOwner {
                 // user is an owner, load only his venues
-                let ownerVenue = PFUser.currentUser()["venueName"] as! String
+               
                 query.whereKey("venueOwner", equalTo: PFUser.currentUser().username)
                 
             }
@@ -89,7 +89,7 @@ class ChimeData: NSObject {
             (objects:[AnyObject]!, error:NSError!)->Void in
             if ((error) == nil) {
                 
-                println(objects)
+                print(objects)
                 
                 self.venues = []
                 
@@ -101,7 +101,7 @@ class ChimeData: NSObject {
                 }
                 
             } else {
-                println(error)
+                print(error)
             }
             
         }

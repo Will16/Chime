@@ -105,7 +105,7 @@ class VendorCreateDealVC: UIViewController, CustomSliderDelegate {
     
     func saveDeal() {
         // save the new deal to the vendor's account
-        println("Vendor requests to save the new deal...")
+        print("Vendor requests to save the new deal...")
         
         // check for reward description and time required
         if describeRewardField.text == "" || timeRequired == 0 {
@@ -124,7 +124,10 @@ class VendorCreateDealVC: UIViewController, CustomSliderDelegate {
                     "additionalDetails":additionalDetailsField.text,
                     "estimatedValue":estimatedValue,
                     "active":true,
-                    "timeCreated":NSDate()
+                    "timeCreated":NSDate
+                
+                
+                
                     
                 ]
             
@@ -133,7 +136,7 @@ class VendorCreateDealVC: UIViewController, CustomSliderDelegate {
             query.getObjectInBackgroundWithId(venueID, block: { (venue, error) -> Void in
                 //        retrieve Parse venue object so we can add the deals to any existing deals
                 if error == nil {
-                    println(venue)
+                    print(venue)
                     
                     var currentVenue: PFObject = venue
 
@@ -161,19 +164,19 @@ class VendorCreateDealVC: UIViewController, CustomSliderDelegate {
                     currentVenue.saveInBackgroundWithBlock({ (success, error) -> Void in
                         
                         if success {
-                            println("New deal successfully saved to Parse...")
+                            print("New deal successfully saved to Parse...")
                             // new deal is saved successfully, pop view controller
                             makeVibrate()
                             self.navigationController?.popViewControllerAnimated(true)
                         } else {
-                            println("Error saving deal to Parse: \(error)")
+                            print("Error saving deal to Parse: \(error)")
                         }
                         
                     })
                     
                     
                 } else {
-                    println("Error loading selected venue from Parse while saving: \(error)")
+                    print("Error loading selected venue from Parse while saving: \(error)")
                 }
                 
             })
@@ -190,7 +193,7 @@ class VendorCreateDealVC: UIViewController, CustomSliderDelegate {
     var cellTouched = false
     
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         var fieldValues: [String] = [describeRewardField.text,additionalDetailsField.text]
         
@@ -199,7 +202,7 @@ class VendorCreateDealVC: UIViewController, CustomSliderDelegate {
             previewDealLabel.text = describeRewardField.text
             
             if additionalDetailsField.text != "" {
-                previewDealLabel.text = describeRewardField.text + "*"
+                previewDealLabel.text = describeRewardField.text! + "*"
             }
 
         }
@@ -211,17 +214,17 @@ class VendorCreateDealVC: UIViewController, CustomSliderDelegate {
             let location = touch.locationInView(previewCellView)
         
             if location.x >= 0 && location.y >= 0 {
-                println("User has clicked on the preview cell...")
+                print("User has clicked on the preview cell...")
 
-                if find(fieldValues, "") == nil {   // would think this would be != nil but...
+                if fieldValues.indexOf("") == nil {   // would think this would be != nil but...
                     
                     cellTouched = true
                     
                     // alternate the text label for the preview cell
-                    if previewDealLabel.text == describeRewardField.text || previewDealLabel.text == describeRewardField.text + "*" {
+                    if previewDealLabel.text == describeRewardField.text || previewDealLabel.text == describeRewardField.text! + "*" {
                         previewDealLabel.text = additionalDetailsField.text
                     } else {
-                        previewDealLabel.text = describeRewardField.text + "*"
+                        previewDealLabel.text = describeRewardField.text! + "*"
                     }
                     
                 }

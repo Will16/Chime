@@ -32,13 +32,13 @@ class VenueTVC: UITableViewController, userLocationProtocol, CLLocationManagerDe
         // check if user is already logged in
         if PFUser.currentUser() != nil {
             // user is already logged in
-            println("User is already logged in...")
+            print("User is already logged in...")
             
         } else {
             // no user found, present loginVC
             if let lVC = storyboard?.instantiateViewControllerWithIdentifier("loginVC") as? LoginVC {
                 self.presentViewController(lVC, animated: false, completion: nil)
-                println("No currentUser found, presenting log in...")
+                print("No currentUser found, presenting log in...")
             }
         }
     }
@@ -51,12 +51,12 @@ class VenueTVC: UITableViewController, userLocationProtocol, CLLocationManagerDe
 
         tableView.backgroundColor = UIColor.clearColor()
 
-        var nc = self.navigationController as! RootNavigationController
+        let nc = self.navigationController as! RootNavigationController
         nc.delegate2 = self
         
         if userLocation != nil { loadVenuesFromParse(false) }
         
-        println("PFUSER: \(PFUser.currentUser())")
+        print("PFUSER: \(PFUser.currentUser())")
         
         // STUFF TO USE
         
@@ -85,14 +85,14 @@ class VenueTVC: UITableViewController, userLocationProtocol, CLLocationManagerDe
                 image.hidden = false
                 
                 // animate the buttons from the bottom
-                var scale1 = CGAffineTransformMakeScale(0.5, 0.5)
-                var translate1 = CGAffineTransformMakeTranslation(200, 0)
+                let scale1 = CGAffineTransformMakeScale(0.5, 0.5)
+                let translate1 = CGAffineTransformMakeTranslation(200, 0)
                 image.transform = CGAffineTransformConcat(scale1, translate1)
                 
                 animationWithDuration(1) {
                     
-                    var scale = CGAffineTransformMakeScale(1, 1)
-                    var translate = CGAffineTransformMakeTranslation(0, 0)
+                    let scale = CGAffineTransformMakeScale(1, 1)
+                    let translate = CGAffineTransformMakeTranslation(0, 0)
                     image.transform = CGAffineTransformConcat(scale, translate)
 
                 }
@@ -114,7 +114,7 @@ class VenueTVC: UITableViewController, userLocationProtocol, CLLocationManagerDe
         // set the badge icon to 0
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
         
-        if let venue = ChimeData.mainData().checkedInVenue as PFObject? {
+        if let _ = ChimeData.mainData().checkedInVenue as PFObject? {
             
             // SHOW BANNER VIEW
             let vName: String = ChimeData.mainData().checkedInVenue?["venueName"] as! String
@@ -157,7 +157,7 @@ class VenueTVC: UITableViewController, userLocationProtocol, CLLocationManagerDe
             return
         }
         
-        var query = PFQuery(className:"Venues")
+        let query = PFQuery(className:"Venues")
 
         if sortByDateCreated == true {
             query.orderByDescending("createdAt")
@@ -180,7 +180,7 @@ class VenueTVC: UITableViewController, userLocationProtocol, CLLocationManagerDe
             if isVenueOwner {
                 // user is an owner, load only his venues
                 let ownerVenue = PFUser.currentUser()["venueName"] as! String
-                println("User is an owner of: \(ownerVenue)")
+                print("User is an owner of: \(ownerVenue)")
                 query.whereKey("venueOwner", equalTo: PFUser.currentUser().username)
                 
                 // set the title in the nav controller
@@ -210,7 +210,7 @@ class VenueTVC: UITableViewController, userLocationProtocol, CLLocationManagerDe
             (objects:[AnyObject]!, error:NSError!)->Void in
             if ((error) == nil) {
                 
-                println(objects)
+                print(objects)
                 
                 self.parseVenues = []
                 
@@ -224,7 +224,7 @@ class VenueTVC: UITableViewController, userLocationProtocol, CLLocationManagerDe
                 self.tableView.reloadData()
                 
             } else {
-                println(error)
+                print(error)
             }
             
         }
@@ -248,13 +248,13 @@ class VenueTVC: UITableViewController, userLocationProtocol, CLLocationManagerDe
                 distance = GlobalVariableSharedInstance.findDistance( location ) as NSNumber
 
             }
-            var dictionary = NSDictionary(objects: [venue, distance], forKeys: ["venueName", "distance"])
+            let dictionary = NSDictionary(objects: [venue, distance], forKeys: ["venueName", "distance"])
             
             arrayOfVenuesDictionaries.append(dictionary)
 
         }
         
-        var sortedArray = self.sortArray(NSMutableArray(array: arrayOfVenuesDictionaries))
+        let sortedArray = self.sortArray(NSMutableArray(array: arrayOfVenuesDictionaries))
         
         // Reinitiate our array of venues
         self.parseVenues = NSMutableArray(capacity: sortedArray.count)
@@ -263,9 +263,9 @@ class VenueTVC: UITableViewController, userLocationProtocol, CLLocationManagerDe
         for dictionary in sortedArray
         {
             
-            var venue = dictionary["venueName"] as! PFObject
+            let venue = dictionary["venueName"] as! PFObject
             
-            var distance = dictionary["distance"] as! NSNumber
+            let distance = dictionary["distance"] as! NSNumber
             
             venue["distance"] = Float(distance) * 0.000621371
             
@@ -281,7 +281,7 @@ class VenueTVC: UITableViewController, userLocationProtocol, CLLocationManagerDe
     
     func sortArray(array:NSMutableArray) -> NSArray
     {
-        var n = array.count
+        let n = array.count
         
         // for first element to beforelast, for second element to last (ALWAYS COMPARE WITH THE NEXT ELEMENT, then exchange if second bigger)
         for var i = 0; i < ( n - 1 ); i++
@@ -289,15 +289,13 @@ class VenueTVC: UITableViewController, userLocationProtocol, CLLocationManagerDe
             for var j = i+1; j < n ; j++
             {
                 // first element and second element
-                var firstDictionary = array.objectAtIndex(i) as! NSDictionary
-                var secondDictionary = array.objectAtIndex(j) as! NSDictionary
+                let firstDictionary = array.objectAtIndex(i) as! NSDictionary
+                let secondDictionary = array.objectAtIndex(j) as! NSDictionary
                 
                 // if the value for key ditstance is smaller in the second than in the first inverse
                 if (Int(secondDictionary["distance"] as! NSNumber) < Int(firstDictionary["distance"] as! NSNumber))
                 {
-                    // first element (NOT USEFUL)
-                    var temp = firstDictionary
-                    
+
                     // swap two elements
                     array.replaceObjectAtIndex(i, withObject: secondDictionary)
                     array.replaceObjectAtIndex(j, withObject: firstDictionary)
@@ -310,7 +308,7 @@ class VenueTVC: UITableViewController, userLocationProtocol, CLLocationManagerDe
 
     @IBAction func logOut(sender: UIBarButtonItem) {
         // log out user
-        println("User logging out...")
+        print("User logging out...")
         PFUser.logOut()
         checkIfLoggedIn()
         
@@ -394,7 +392,7 @@ class VenueTVC: UITableViewController, userLocationProtocol, CLLocationManagerDe
             
             if venue.objectId == ChimeData.mainData().checkedInVenue?.objectId {
                 
-                println("\(venue) has been checked in to...")
+                print("\(venue) has been checked in to...")
                 // venue is the one checked in to, set tag to blue and neighborhood text
                 cell.tagView.backgroundColor = blueActivated.colorWithAlphaComponent(0.5)
                 cell.venueNeighborhood.text = "Chimed in here!"
@@ -469,7 +467,7 @@ class VenueTVC: UITableViewController, userLocationProtocol, CLLocationManagerDe
         
         // if user is an owner, push to vendorDetailVC, otherwise, send user to DetailVC
         if isOwner {
-            println("User is an owner, pushing vendor detail view...")
+            print("User is an owner, pushing vendor detail view...")
             
             let vDVC = self.storyboard?.instantiateViewControllerWithIdentifier("vendorDetailVC") as! VendorDetailVC
             
@@ -477,7 +475,7 @@ class VenueTVC: UITableViewController, userLocationProtocol, CLLocationManagerDe
             
         } else {
             
-            println("User has selected a venue, pushing detail view...")
+            print("User has selected a venue, pushing detail view...")
             
             let venueGeo = venue["location"] as! PFGeoPoint
             let venueLocation = CLLocation(latitude: venueGeo.latitude, longitude: venueGeo.longitude)

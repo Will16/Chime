@@ -76,7 +76,7 @@ class RootNavigationController: UINavigationController {
         
         // make images for navbar
         let images = ["shotGlass","pintGlass","wineGlass","wineGlasses","beerMug"]
-        for (i,imageName) in enumerate(images) {
+        for (i,imageName) in images.enumerate() {
             
             let backButtonSize: CGFloat = 100
             let sWidth: CGFloat = UIScreen.mainScreen().bounds.width
@@ -99,7 +99,7 @@ class RootNavigationController: UINavigationController {
     
     func selectedControllerDidChange() {
 
-        var selectedSegment = sC.selectedSegmentIndex
+        let selectedSegment = sC.selectedSegmentIndex
         if selectedSegment == 0 {
             self.delegate2?.segmentedControllerDidChange(0)
         }

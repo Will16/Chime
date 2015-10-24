@@ -44,8 +44,8 @@ class VenueRegistrationTVC: UITableViewController {
         /////////   SHIFT UI WITH KEYBOARD PRESENT
         /////////
         var keyboardHeight: CGFloat = 0
-        NSNotificationCenter.defaultCenter().addObserverForName(UIKeyboardWillShowNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
-            if let kbSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size {
+        NSNotificationCenter.defaultCenter().addObserverForName(UIKeyboardWillShowNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification) -> Void in
+            if let kbSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size {
                 // move constraint
                 keyboardHeight = kbSize.height
 
@@ -82,28 +82,27 @@ class VenueRegistrationTVC: UITableViewController {
     override func viewDidAppear(animated: Bool) {
         
         // animate the logo from the bottom
-        var scale1 = CGAffineTransformMakeScale(0.5, 0.5)
-        var translate1 = CGAffineTransformMakeTranslation(0, 400)
+        let scale1 = CGAffineTransformMakeScale(0.5, 0.5)
+        let translate1 = CGAffineTransformMakeTranslation(0, 400)
         self.chimeLabel.transform = CGAffineTransformConcat(scale1, translate1)
         
         animationWithDuration(2) {
             self.chimeLabel.hidden = false
-            var scale = CGAffineTransformMakeScale(1, 1)
-            var translate = CGAffineTransformMakeTranslation(0, 0)
+            let scale = CGAffineTransformMakeScale(1, 1)
+            let translate = CGAffineTransformMakeTranslation(0, 0)
             self.chimeLabel.transform = CGAffineTransformConcat(scale, translate)
         }
         
         // animate the rest
-        var scale2 = CGAffineTransformMakeScale(0.5, 0.5)
-        var translate2 = CGAffineTransformMakeTranslation(200, 0)
-        self.backButton.transform = CGAffineTransformConcat(scale1, translate1)
+       
+              self.backButton.transform = CGAffineTransformConcat(scale1, translate1)
         self.welcomeTextLabel.transform = CGAffineTransformConcat(scale1, translate1)
         
         animationWithDuration(2) {
             self.backButton.hidden = false
             self.welcomeTextLabel.hidden = false
-            var scale = CGAffineTransformMakeScale(1, 1)
-            var translate = CGAffineTransformMakeTranslation(0, 0)
+            let scale = CGAffineTransformMakeScale(1, 1)
+            let translate = CGAffineTransformMakeTranslation(0, 0)
             self.backButton.transform = CGAffineTransformConcat(scale, translate)
             self.welcomeTextLabel.transform = CGAffineTransformConcat(scale, translate)
         }
@@ -123,31 +122,31 @@ class VenueRegistrationTVC: UITableViewController {
     // need to connect this to storyboard
     @IBAction func checkFields(sender: AnyObject) {
         // email / pw field validation
-        var fieldValues: [String] = [emailField.text,passwordField.text,venueNameField.text,venueAddressField.text,venuePhoneField.text,venueNeighborhoodField.text]
-        if find(fieldValues, "") != nil {
+        let fieldValues: [String] = [emailField.text!,passwordField.text!,venueNameField.text!,venueAddressField.text!,venuePhoneField.text!,venueNeighborhoodField.text!]
+        if fieldValues.indexOf("") != nil {
             // all fields are not filled in, present alert
-            var alertViewController = UIAlertController(title: "Submission Error", message: "Please fill in all fields.", preferredStyle: UIAlertControllerStyle.Alert)
-            var defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let alertViewController = UIAlertController(title: "Submission Error", message: "Please fill in all fields.", preferredStyle: UIAlertControllerStyle.Alert)
+            let defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
             alertViewController.addAction(defaultAction)
             presentViewController(alertViewController, animated: true, completion: nil)
         } else {
             // all fields are filled in, check if user exists
-            var userQuery = PFUser.query()
+            let userQuery = PFUser.query()
             userQuery.whereKey("email", equalTo: emailField.text)
             
             userQuery.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
                 if objects.count > 0 {
                     // user already exists, present error message
-                    println("User already exists, presenting error alert...")
+                    print("User already exists, presenting error alert...")
 
-                    var aVC = UIAlertController(title: "Account Already Exists", message: "Please log in through the previous screen. This screen is for new account registration only.", preferredStyle: UIAlertControllerStyle.ActionSheet)
-                    var defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+                    let aVC = UIAlertController(title: "Account Already Exists", message: "Please log in through the previous screen. This screen is for new account registration only.", preferredStyle: UIAlertControllerStyle.ActionSheet)
+                    let defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
                     aVC.addAction(defaultAction)
                     self.presentViewController(aVC, animated: true, completion: nil)
                     
                 } else {
                     // user not found, sign up user
-                    println("Sign Up fields good...")
+                    print("Sign Up fields good...")
                     self.signUp()
                 }
             })
@@ -157,7 +156,7 @@ class VenueRegistrationTVC: UITableViewController {
     
     func signUp() {
         // sign up user
-        var user = PFUser()
+        let user = PFUser()
         user.username = emailField.text
         user.password = passwordField.text
         user.email = emailField.text
@@ -181,17 +180,17 @@ class VenueRegistrationTVC: UITableViewController {
             (succeeded: Bool, error: NSError!) -> Void in
             if error == nil {
                 // sign up successful
-                println("Parse: Sign up successful. New account created: \(user.username)")
+                print("Parse: Sign up successful. New account created: \(user.username)")
                 
                 self.saveVenue()
                 
             } else {
                 // sign up failed
-                let errorString = error.userInfo?["error"] as! NSString
-                println("Signup failed. Error message: \(errorString)")
+                let errorString = error.userInfo["error"] as! NSString
+                print("Signup failed. Error message: \(errorString)")
                 // present alert to user
-                var alertViewController = UIAlertController(title: "Sign Up Error", message: "Our apologies! Please try again.", preferredStyle: UIAlertControllerStyle.Alert)
-                var defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+                let alertViewController = UIAlertController(title: "Sign Up Error", message: "Our apologies! Please try again.", preferredStyle: UIAlertControllerStyle.Alert)
+                let defaultAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
                 alertViewController.addAction(defaultAction)
                 self.presentViewController(alertViewController, animated: true, completion: nil)
                 
@@ -201,15 +200,15 @@ class VenueRegistrationTVC: UITableViewController {
     
     func saveVenue() {
         
-        var address = self.venueAddressField.text
+        let address = self.venueAddressField.text
         
 //        GlobalVariableSharedInstance.delegate = self
         
-        GlobalVariableSharedInstance.addressToLocation(address, completion: { (geoPoint) -> Void in
+        GlobalVariableSharedInstance.addressToLocation(address!, completion: { (geoPoint) -> Void in
             
             if let geoPoint = geoPoint {
                 
-                var venueInfo:PFObject = PFObject(className: "Venues")
+                let venueInfo:PFObject = PFObject(className: "Venues")
                 venueInfo["venueName"] = self.venueNameField.text
                 venueInfo["venueAddress"] = self.venueAddressField.text
                 venueInfo["venueNeighborhood"] = self.venueNeighborhoodField.text
@@ -219,7 +218,7 @@ class VenueRegistrationTVC: UITableViewController {
                 
                 venueInfo.saveInBackgroundWithBlock({ (succeeded: Bool, error: NSError!) -> Void in
                     // venue is successfully saved to parse, dismiss vc
-                    println("Venue registration succeeded. Venue created: \(self.venueNameField.text)")
+                    print("Venue registration succeeded. Venue created: \(self.venueNameField.text)")
                     
                     makeVibrate()
                     
@@ -238,7 +237,7 @@ class VenueRegistrationTVC: UITableViewController {
     
     // not sure what this does but it conforms us to the protocol..
     func didReceiveGeoPoint(location: PFGeoPoint) {
-        println("didReceiveGeoPoint function ran...")
+        print("didReceiveGeoPoint function ran...")
         
     }
     
@@ -247,7 +246,7 @@ class VenueRegistrationTVC: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         // dismiss keyboard when user touches outside textfields
         view.endEditing(true)
 //        tableView.endEditing(true)

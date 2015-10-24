@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "509183127E011D6D7E5C48F3EB7E6A274488D2A6",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "509183127E011D6D7E5C48F3EB7E6A274488D2A6" : 0,
+    "97DAD3BEEE6228021BE0AC642482A361F30D073B" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "74F57F0C-8A35-4640-982F-47E1D49A8579",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "509183127E011D6D7E5C48F3EB7E6A274488D2A6" : "Chime",
+    "97DAD3BEEE6228021BE0AC642482A361F30D073B" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Chime",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Chime.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/maxmcchesney\/Chime.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "509183127E011D6D7E5C48F3EB7E6A274488D2A6"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Will16\/Portfolio.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "97DAD3BEEE6228021BE0AC642482A361F30D073B"
+    }
+  ]
+}

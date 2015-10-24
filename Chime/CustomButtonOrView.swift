@@ -55,7 +55,7 @@ import UIKit
 
         gradientLayer?.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer?.endPoint = CGPoint(x: 0, y: 1)
-        self.layer.insertSublayer(gradientLayer, atIndex: 0)
+        self.layer.insertSublayer(gradientLayer!, atIndex: 0)
 
     }
 
