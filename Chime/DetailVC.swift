@@ -42,12 +42,12 @@ class DetailVC: UIViewController {
 //        }
         
         // Get the main bundle for the app
-        let mainBundle = CFBundleGetMainBundle()
-//        let cfName =
-        let soundFileURLRef = CFBundleCopyResourceURL(mainBundle, "tap", "aif", nil)
-
-        AudioServicesCreateSystemSoundID(soundFileURLRef, &soundID)
-        
+//        let mainBundle = CFBundleGetMainBundle()
+////        let cfName =
+//        let soundFileURLRef = CFBundleCopyResourceURL(mainBundle, "tap", "aif", nil)
+//
+//        AudioServicesCreateSystemSoundID(soundFileURLRef, &soundID)
+//        
         
         // if already checkedIn ...  checkInButton.enabled = false
         toggleCheckInButton()
