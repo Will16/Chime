@@ -541,6 +541,7 @@ class DetailTVC: UITableViewController {
         return venueDeals.count
     }
     
+    // write a new function for sorting an array, if it downs
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("dealCell", forIndexPath: indexPath) as! DealCell
         
