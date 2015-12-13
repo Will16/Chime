@@ -2,8 +2,8 @@
 //  CustomSlider.m
 //  ScribbleTouch
 //
-//  Created by Michael McChesney on 1/16/15.
-//  Copyright (c) 2015 Michael McChesney All rights reserved.
+//  Created by William McDuff on 1/16/15.
+//  Copyright (c) 2015 William McDuff All rights reserved.
 //
 
 #import "CustomSlider.h"

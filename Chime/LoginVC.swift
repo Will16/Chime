@@ -2,8 +2,8 @@
 //  LoginVC.swift
 //  Chime
 //
-//  Created by Max McChesney on 3/2/15.
-//  Copyright (c) 2015 Max McChesney. All rights reserved.
+//  Created by William McDuff on 3/2/15.
+//  Copyright (c) 2015 William McDuff. All rights reserved.
 //
 
 import UIKit
