@@ -8,6 +8,7 @@
 
 import UIKit
 import AudioToolbox
+import CoreLocation
 
 class LoginVC: UIViewController, FBLoginViewDelegate, CLLocationManagerDelegate {
 
